@@ -1,0 +1,21 @@
+{% extends 'common/base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="container date-head">
+        <div class="col-md-3 date-prev"><a href="{% url 'date_view' prev_day %}">{{ prev_day }}</a></div>
+        <div class="col-md-6 date-current"><h1>{{ date }}</h1></div>
+        <div class="col-md-3 date-next"></div>
+    </div>
+
+    <form method="post" class="form">
+        {% csrf_token %}
+
+        {% bootstrap_form form %}
+
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">Save</button>
+        {% endbuttons %}
+    </form>
+
+{% endblock %}

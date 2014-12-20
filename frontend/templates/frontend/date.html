@@ -1,0 +1,21 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+    <div class="container date-head">
+        <div class="col-md-3 date-prev"><a href="{% url 'date_view' prev_day %}">{{ prev_day }}</a></div>
+        <div class="col-md-6 date-current"><h1>{{ date }}</h1></div>
+        <div class="col-md-3 date-next"><a href="{% url 'date_view' next_day %}">{{ next_day }}</a></div>
+    </div>
+
+    {% for response in responses %}
+        <h4>{{ response.datum.prompt }}</h4>
+        {% if response.datum.has_choices %}
+            {% for choice in response.choices.all %}
+                {{ choice }}
+            {% endfor %}
+        {% else %}
+            {{ response.response }}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
