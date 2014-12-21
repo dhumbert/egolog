@@ -13,16 +13,16 @@
         <div class="col-md-3 date-nav date-next"></div>
     </div>
 
-    <form method="post" class="form">
+    <form id="today-form" method="post" class="form" enctype="multipart/form-data">
         {% csrf_token %}
 
         {% for field_type, fields in field_groups.items %}
             {% include 'frontend/fields/groups/'|add:field_type|add:'.html' %}
         {% endfor %}
 
-        {% buttons %}
+        <div class="form-actions">
             <button type="submit" class="btn btn-primary btn-block btn-lg">Save</button>
-        {% endbuttons %}
+        </div>
     </form>
 
 {% endblock %}

@@ -15,6 +15,7 @@ def get_field_for_datum(datum_type):
         'multi_choice': forms.MultipleChoiceField(widget=InlineCheckboxSelectMultiple(), required=False),
         'numeric': forms.IntegerField(required=False),
         'range': forms.IntegerField(widget=RangeInput(), required=False),
+        'image': forms.ImageField(required=False),
     }[datum_type]
 
 

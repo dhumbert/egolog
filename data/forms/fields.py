@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.encoding import force_text
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -11,6 +12,10 @@ __all__ = (
 
 class RangeInput(forms.TextInput):
     input_type = 'range'
+
+
+class ImageField(forms.FileField):
+    pass
 
 
 class InlineChoiceInput(forms.widgets.ChoiceInput):
@@ -62,6 +67,7 @@ class InlineChoiceFieldRenderer(forms.widgets.ChoiceFieldRenderer):
                 output.append(format_html('{0}', force_text(w)))
         output.append('</div>')
         return mark_safe('\n'.join(output))
+
 
 class InlineCheckboxFieldRenderer(InlineChoiceFieldRenderer):
     choice_input_class = InlineCheckboxChoiceInput

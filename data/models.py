@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 
 
@@ -10,6 +11,7 @@ def get_datum_types():
         ('choice', 'Choice'),
         ('multi_choice', 'Multi Choice'),
         ('range', 'Range'),
+        ('image', 'Image'),
     )
 
 
@@ -36,6 +38,9 @@ class Datum(models.Model):
     def has_max_and_min(self):
         return self.datum_type in ['range']
 
+    def has_uploads(self):
+        return self.datum_type in ['image']
+
 
 class Choice(models.Model):
     datum = models.ForeignKey(Datum)
@@ -53,4 +58,5 @@ class Response(models.Model):
     date = models.DateField()
     datum = models.ForeignKey(Datum)
     response = models.TextField()
-    choices = models.ManyToManyField(Choice)
+    choices = models.ManyToManyField(Choice, null=True)
+    file = models.FileField(upload_to=settings.UPLOAD_DIR, null=True, blank=True)

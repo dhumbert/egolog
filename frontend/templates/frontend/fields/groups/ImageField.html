@@ -1,0 +1,24 @@
+{% extends 'frontend/fields/groups/generic.html' %}
+{% load bootstrap3 %}
+{% load frontend %}
+
+{% block before_fields %}
+    <div class="row">
+{% endblock %}
+
+{% block field %}
+        <div class="col-sm-3">{% bootstrap_field field %}</div>
+        <div class="col-sm-3 current-image">
+            {% if existing_data|get_item:field.name %}
+                <a href="{{ existing_data|get_item:field.name }}" target="_blank">
+                    <img src="{{ existing_data|get_item:field.name }}" class="img-responsive">
+                </a>
+            {% else %}
+                <p class="text-muted">No image... yet.</p>
+            {% endif %}
+        </div>
+{% endblock %}
+
+{% block after_fields %}
+    </div>
+{% endblock %}

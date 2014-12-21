@@ -55,6 +55,7 @@ ROOT_URLCONF = 'egolog.urls'
 
 WSGI_APPLICATION = 'egolog.wsgi.application'
 
+UPLOAD_DIR = 'static/uploads'
 
 TEMPLATE_DIRS = (
     'templates/',
