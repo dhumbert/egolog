@@ -9,12 +9,12 @@ __all__ = (
 
 def get_field_for_datum(datum_type):
     return {
-        'long_text': forms.CharField(widget=forms.Textarea),
-        'short_text': forms.CharField(),
-        'choice': forms.ChoiceField(),
-        'multi_choice': forms.MultipleChoiceField(widget=InlineCheckboxSelectMultiple()),
-        'numeric': forms.IntegerField(),
-        'range': forms.IntegerField(widget=RangeInput()),
+        'long_text': forms.CharField(widget=forms.Textarea, required=False),
+        'short_text': forms.CharField(required=False),
+        'choice': forms.ChoiceField(required=False),
+        'multi_choice': forms.MultipleChoiceField(widget=InlineCheckboxSelectMultiple(), required=False),
+        'numeric': forms.IntegerField(required=False),
+        'range': forms.IntegerField(widget=RangeInput(), required=False),
     }[datum_type]
 
 

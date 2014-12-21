@@ -1,1 +1,17 @@
 {% extends 'frontend/fields/groups/generic.html' %}
+{% load bootstrap3 %}
+
+{% block before_fields %}
+    <div class="row">
+{% endblock %}
+
+{% block field %}
+    <div class="col-sm-6">
+        {% bootstrap_field field %}
+    </div>
+{% endblock %}
+
+{% block after_fields %}
+
+    </div>
+{% endblock %}

@@ -51,8 +51,11 @@ def index(request):
             else:
                 existing_data['datum_{}'.format(response.datum.id)] = response.response
 
+        fn_field_name = lambda f: f.field.__class__.__name__
+
         form = DataForm(request.user, data=existing_data)
-        field_groups = {x: list(y) for x, y in itertools.groupby(form, key=lambda x: x.field.__class__.__name__)}
+        fields = sorted(form, key=fn_field_name)  # sort fields for groupby
+        field_groups = {x: list(y) for x, y in itertools.groupby(fields, key=fn_field_name)}
 
         # for k, g in x:
         #     print(k)

@@ -1,21 +1,36 @@
 {% extends 'common/base.html' %}
+{% load bootstrap3 %}
 
 {% block content %}
 
-    <div class="container date-head">
-        <div class="col-md-3 date-prev"><a href="{% url 'date_view' prev_day %}">{{ prev_day }}</a></div>
+    <div class="row date-head">
+        <div class="col-md-3 date-nav date-prev">
+            <a href="{% url 'date_view' prev_day %}">
+                {% bootstrap_icon 'circle-arrow-left' %}
+                prev. day
+            </a>
+        </div>
         <div class="col-md-6 date-current"><h1>{{ date }}</h1></div>
-        <div class="col-md-3 date-next"><a href="{% url 'date_view' next_day %}">{{ next_day }}</a></div>
+        <div class="col-md-3 date-nav date-next">
+            <a href="{% url 'date_view' next_day %}">
+                next day
+                {% bootstrap_icon 'circle-arrow-right' %}
+            </a>
+        </div>
     </div>
 
-    {% for response in responses %}
-        <h4>{{ response.datum.prompt }}</h4>
-        {% if response.datum.has_choices %}
-            {% for choice in response.choices.all %}
-                {{ choice }}
-            {% endfor %}
-        {% else %}
-            {{ response.response }}
-        {% endif %}
-    {% endfor %}
+    {% if responses %}
+        {% for response in responses %}
+            <h4>{{ response.datum.prompt }}</h4>
+            {% if response.datum.has_choices %}
+                {% for choice in response.choices.all %}
+                    {{ choice }}
+                {% endfor %}
+            {% else %}
+                {{ response.response }}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>No responses on this date :-(</p>
+    {% endif %}
 {% endblock %}
