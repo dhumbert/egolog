@@ -7,10 +7,6 @@ h1 {
     font-family: 'Nothing You Could Do', 'Helvetica', sans-serif;
 }
 
-.date-head {
-    margin-bottom: 3em;
-}
-
 .date-nav {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -28,6 +24,20 @@ h1 {
 
 .date-current {
     border-bottom: 1px solid #eee;
+}
+
+.quote {
+    margin: 2em 0;
+    text-align: center;
+}
+
+.quote cite {
+    display: block;
+    margin-top: 0.5em;
+}
+
+#day-form {
+    margin-top: 3em;
 }
 
 .form-actions {

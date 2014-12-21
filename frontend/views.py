@@ -1,13 +1,23 @@
 from datetime import date, datetime, time, timedelta
 import itertools
+import random
 from django.shortcuts import render, redirect
 from data import models as data_models
+from quotes import models as quote_models
 from data.forms import DataForm
 
 
 def index(request):
     current_date = date.today()
     prev_day, _ = get_bracketing_dates(current_date)
+
+    quote = random.choice(quote_models.Quote.objects.filter(active=True).all())
+
+    context = {
+        'date': current_date,
+        'prev_day': prev_day,
+        'quote': quote,
+    }
 
     if request.method == 'POST':
         form = DataForm(request.user, data=request.POST, files=request.FILES)
@@ -38,7 +48,8 @@ def index(request):
 
             return redirect('index')
         else:
-            return render(request, 'frontend/index.html', {'form': form, 'date': current_date, 'prev_day': prev_day})
+            context['form'] = form
+            return render(request, 'frontend/index.html', context)
     else:
         existing_data = {}
         for response in data_models.Response.objects.filter(user=request.user, date=current_date).all():
@@ -60,11 +71,9 @@ def index(request):
         fields = sorted(form, key=fn_field_name)  # sort fields for groupby
         field_groups = {x: list(y) for x, y in itertools.groupby(fields, key=fn_field_name)}
 
-        return render(request, 'frontend/index.html', {
-            'field_groups': field_groups,
-            'existing_data': existing_data,
-            'date': current_date,
-            'prev_day': prev_day})
+        context['field_groups'] = field_groups
+        context['existing_data'] = existing_data
+        return render(request, 'frontend/index.html', context)
 
 
 def date_view(request, date_to_view):
