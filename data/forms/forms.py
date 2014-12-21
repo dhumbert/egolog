@@ -1,8 +1,10 @@
 from django import forms
+from .fields import *
 
 
-class RangeInput(forms.TextInput):
-    input_type = 'range'
+__all__ = (
+    'DataForm',
+)
 
 
 def get_field_for_datum(datum_type):
@@ -10,7 +12,7 @@ def get_field_for_datum(datum_type):
         'long_text': forms.CharField(widget=forms.Textarea),
         'short_text': forms.CharField(),
         'choice': forms.ChoiceField(),
-        'multi_choice': forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple()),
+        'multi_choice': forms.MultipleChoiceField(widget=InlineCheckboxSelectMultiple()),
         'numeric': forms.IntegerField(),
         'range': forms.IntegerField(widget=RangeInput()),
     }[datum_type]

@@ -1,4 +1,5 @@
 from datetime import date, datetime, time, timedelta
+import itertools
 from django.shortcuts import render, redirect
 from data import models as data_models
 from data.forms import DataForm
@@ -51,8 +52,17 @@ def index(request):
                 existing_data['datum_{}'.format(response.datum.id)] = response.response
 
         form = DataForm(request.user, data=existing_data)
+        field_groups = {x: list(y) for x, y in itertools.groupby(form, key=lambda x: x.field.__class__.__name__)}
 
-        return render(request, 'frontend/index.html', {'form': form, 'date': current_date, 'prev_day': prev_day})
+        # for k, g in x:
+        #     print(k)
+        #     print("===")
+        #     print(list(g))
+        #
+        # for f in form:
+        #     print(type(f.field))
+
+        return render(request, 'frontend/index.html', {'field_groups': field_groups, 'date': current_date, 'prev_day': prev_day})
 
 
 def date_view(request, date_to_view):
