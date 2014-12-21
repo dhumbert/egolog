@@ -11,12 +11,9 @@ def index(request):
     current_date = date.today()
     prev_day, _ = get_bracketing_dates(current_date)
 
-    quote = random.choice(quote_models.Quote.objects.filter(active=True).all())
-
     context = {
         'date': current_date,
         'prev_day': prev_day,
-        'quote': quote,
     }
 
     if request.method == 'POST':

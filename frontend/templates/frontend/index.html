@@ -1,5 +1,6 @@
-{% extends 'common/base.html' %}
+{% extends 'frontend/common/base.html' %}
 {% load bootstrap3 %}
+{% load static %}
 
 {% block content %}
     <div class="row date-head">
@@ -13,9 +14,7 @@
         <div class="col-md-3 date-nav date-next"></div>
     </div>
 
-    {% if quote %}
-        {% include 'quotes/quote.html' %}
-    {% endif %}
+    {% include 'frontend/quote.html' %}
 
     <form id="today-form" method="post" class="form" enctype="multipart/form-data">
         {% csrf_token %}
@@ -29,4 +28,11 @@
         </div>
     </form>
 
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        var quoteAjaxUrl = '{% url 'random_quote' %}';
+    </script>
+    <script src="{% static 'script/frontend/today.js' %}"></script>
 {% endblock %}

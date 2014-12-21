@@ -16,4 +16,11 @@ class Quote(models.Model):
     source = models.CharField(max_length=255, null=True, blank=True)
     active = models.BooleanField(default=True)
 
+    def as_dict(self):
+        return {
+            'author': self.author.name,
+            'text': self.text,
+            'source': self.source,
+        }
+
 

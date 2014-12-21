@@ -25,13 +25,12 @@ h1 {
 .date-current {
     border-bottom: 1px solid #eee;
 }
-
-.quote {
+#quote {
     margin: 2em 0;
     text-align: center;
 }
 
-.quote cite {
+#quote cite {
     display: block;
     margin-top: 0.5em;
 }
